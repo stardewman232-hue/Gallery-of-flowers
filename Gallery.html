@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Flower Gallery</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #f4f4f4;
+        text-align: center;
+    }
+
+    header {
+        background-color: #222;
+        color: white;
+        padding: 1rem;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    #displayed-image {
+        width: 60%;
+        max-width: 600px;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        margin-bottom: 10px;
+    }
+
+    #image-description {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+    }
+
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    .gallery img {
+        width: 100%;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover,
+    .gallery img:focus {
+        transform: scale(1.05);
+        outline: 3px solid #555;
+    }
+
+    footer {
+        background-color: #222;
+        color: white;
+        padding: 10px;
+        margin-top: 20px;
+    }
+</style>
+</head>
+
+<body onload="initializeGallery()">
+
+<header>
+    <h1>Interactive Flower Gallery</h1>
+    <p>Hover, click, or use keyboard (Tab + Enter) to explore the flowers.</p>
+</header>
+
+<main>
+    <section>
+        <img id="displayed-image" 
+             src="https://via.placeholder.com/600x400?text=Select+a+Flower" 
+             alt="Large display area">
+        <p id="image-description">Flower description will appear here.</p>
+    </section>
+
+    <section class="gallery">
+
+        <!-- 6 Flower Images -->
+        <img src="flower1.jpg" alt="Cluster of soft purple blossoms in full bloom">
+        <img src="flower2.jpg" alt="Bright pink layered flowers with green buds">
+        <img src="flower3.jpg" alt="Lavender colored flowers under sunlight">
+        <img src="flower4.jpg" alt="Vibrant red and purple garden flowers">
+        <img src="flower5.jpg" alt="Deep violet blossoms with white flowers in background">
+        <img src="flower6.jpg" alt="Light pink flowers with blurred green background">
+
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 Interactive Flower Gallery</p>
+</footer>
+
+<script>
+
+function initializeGallery() {
+
+    console.log("Gallery Loaded Successfully");
+
+    const images = document.querySelectorAll(".gallery img");
+
+    for (let i = 0; i < images.length; i++) {
+
+        images[i].setAttribute("tabindex", "0");
+
+        images[i].addEventListener("click", function() {
+            showImage(this);
+        });
+
+        images[i].addEventListener("mouseover", function() {
+            showImage(this);
+            console.log("Mouse Over Triggered");
+        });
+
+        images[i].addEventListener("mouseleave", function() {
+            console.log("Mouse Leave Triggered");
+        });
+
+        images[i].addEventListener("focus", function() {
+            showImage(this);
+            console.log("Focus Triggered");
+        });
+
+        images[i].addEventListener("blur", function() {
+            console.log("Blur Triggered");
+        });
+
+        images[i].addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                showImage(this);
+                console.log("Enter Key Triggered");
+            }
+        });
+    }
+}
+
+function showImage(img) {
+    const displayedImage = document.getElementById("displayed-image");
+    const description = document.getElementById("image-description");
+
+    displayedImage.src = img.src;
+    displayedImage.alt = img.alt;
+    description.textContent = img.alt;
+}
+
+</script>
+
+</body>
+</html>
